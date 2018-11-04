@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1541300613260.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2029186275",
+    "id" : "2B942E07",
+    "lastKnownWriteTime" : 1541301352,
+    "last_content_update" : 1541301352445,
+    "path" : "~/Desktop/my stuff/code/projects/genetic/scripts/01_genetic_linreg.Rmd",
+    "project_path" : "scripts/01_genetic_linreg.Rmd",
+    "properties" : {
+        "cursorPosition" : "7,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

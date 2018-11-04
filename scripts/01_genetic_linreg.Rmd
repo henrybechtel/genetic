@@ -1,0 +1,107 @@
+---
+title: "Genetic Linear Regression"
+author: "Henry Bechtel"
+output: html_document
+---
+
+## A solution... via evolution!
+
+
+Importing Libraries
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(ggplot2)
+library(dplyr)
+```
+
+
+Generating Data
+```{r}
+x <- rnorm(100, 30, 5)
+y <- 3*x + 5 + rnorm(x, 0, 5)
+```
+
+
+Randomly generate a set of model coefficients
+``` {r}
+beta <- runif(2, -5, 5)
+```
+
+
+Visualizing how our data look
+```{r}
+data.frame(x, y) %>%
+    ggplot(aes(x,y)) + 
+    geom_point() +
+    geom_abline(intercept=beta[1], slope = beta[2])
+
+beta
+```
+
+
+```{r}
+# Model prediction
+yhat <- beta[1] + beta[2]*x
+
+# Score
+rmse <- sqrt(mean((y-yhat)^2))
+
+rmse
+```
+
+
+Now with simple GA
+```{r}
+# Generate population
+total_pop <- 1000
+population <- data.frame(beta0 = runif(total_pop, -100, 100), beta1 = runif(total_pop, -100, 100)) 
+
+# Score population
+population$rmse <- 0
+
+for(generation in 1:50){
+  for(i in 1:nrow(population)){
+    population$rmse[i] <- sqrt(mean((y-(population$beta0[i] + population$beta1[i]*x))^2))
+  }
+  
+  # Selection
+  top_pop <- head(population[order(population$rmse),], total_pop/10)
+  
+  # Crossover
+  population$beta0 <- sample(top_pop$beta0, total_pop, replace = TRUE)
+  population$beta1 <- sample(top_pop$beta1, total_pop, replace = TRUE)
+  
+  # Mutation
+  population$beta0 <- population$beta0 + rnorm(total_pop)
+  population$beta1 <- population$beta1 + rnorm(total_pop)
+}
+```
+
+
+Visualizing
+```{r}
+data.frame(x, y) %>%
+  ggplot(aes(x,y)) + 
+  geom_point() +
+  geom_abline(data = head(top_pop, 20), aes(intercept=beta0, slope = beta1, alpha = 0.1, color = rmse))
+```
+
+
+```{r}
+head(top_pop)
+```
+
+
+```{r}
+paste("Estimate for beta0 is:  " , mean(top_pop$beta0))
+paste("Estimate for beta1 is:  " , mean(top_pop$beta1))
+paste("Estimate for beta0 SE is:  ", sd(top_pop$beta0))
+paste("Estimate for beta1 SE is:  ", sd(top_pop$beta1))
+```
+
+
+Benchmark against lm
+```{r}
+fit <- lm(y ~ x)
+summary(fit)
+```
+

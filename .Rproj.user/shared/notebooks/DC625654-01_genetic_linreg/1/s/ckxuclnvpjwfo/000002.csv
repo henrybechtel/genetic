@@ -1,0 +1,7 @@
+"0","data.frame(x, y) %>%"
+"0","    ggplot(aes(x,y)) + "
+"0","    geom_point() +"
+"0","    geom_abline(intercept=beta[1], slope = beta[2])"
+"2","Error in data.frame(x, y) %>% ggplot(aes(x, y)) : 
+  could not find function ""%>%""
+"
