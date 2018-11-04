@@ -5,14 +5,14 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "2029186275",
+    "hash" : "637106731",
     "id" : "2B942E07",
-    "lastKnownWriteTime" : 1541301352,
-    "last_content_update" : 1541301352445,
+    "lastKnownWriteTime" : 1541303171,
+    "last_content_update" : 1541303171564,
     "path" : "~/Desktop/my stuff/code/projects/genetic/scripts/01_genetic_linreg.Rmd",
     "project_path" : "scripts/01_genetic_linreg.Rmd",
     "properties" : {
-        "cursorPosition" : "7,0",
+        "cursorPosition" : "3,11",
         "scrollLine" : "0",
         "tempName" : "Untitled1"
     },
