@@ -91,7 +91,8 @@ head(top_pop)
 ```
 
 
-```{r}
+Let's look at the averages and standard deviations of the top betas
+```{r , echo=FALSE}
 paste("Estimate for beta0 is:  " , mean(top_pop$beta0))
 paste("Estimate for beta1 is:  " , mean(top_pop$beta1))
 paste("Estimate for beta0 SE is:  ", sd(top_pop$beta0))
@@ -99,7 +100,7 @@ paste("Estimate for beta1 SE is:  ", sd(top_pop$beta1))
 ```
 
 
-Benchmark against lm
+And now we can compare that with the output of lm
 ```{r}
 fit <- lm(y ~ x)
 summary(fit)

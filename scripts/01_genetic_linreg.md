@@ -40,7 +40,7 @@ data.frame(x, y) %>%
 beta
 ```
 
-    ## [1] -4.699591  1.823945
+    ## [1] -3.590564  2.456406
 
 ``` r
 # Model prediction
@@ -52,7 +52,7 @@ rmse <- sqrt(mean((y-yhat)^2))
 rmse
 ```
 
-    ## [1] 44.81166
+    ## [1] 25.27904
 
 Now with simple GA
 
@@ -97,39 +97,25 @@ data.frame(x, y) %>%
 head(top_pop)
 ```
 
-    ##          beta0    beta1     rmse
-    ## 23   0.5488911 3.122328 4.588295
-    ## 497  2.5171267 3.040468 4.603602
-    ## 368  4.3638219 3.007564 4.613082
-    ## 569 -0.1676600 3.156144 4.614647
-    ## 198  4.5977039 3.002063 4.622189
-    ## 470 -0.6070796 3.171487 4.624350
+    ##        beta0    beta1     rmse
+    ## 670 7.605998 2.924010 4.703048
+    ## 332 9.248124 2.853227 4.712000
+    ## 506 4.345562 3.009461 4.739341
+    ## 320 5.471338 3.005883 4.740559
+    ## 526 3.377788 3.048076 4.742082
+    ## 429 3.120599 3.053852 4.752048
 
-``` r
-paste("Estimate for beta0 is:  " , mean(top_pop$beta0))
-```
+Let's look at the averages and standard deviations of the top betas
 
-    ## [1] "Estimate for beta0 is:   6.13032196598736"
+    ## [1] "Estimate for beta0 is:   6.30668124315131"
 
-``` r
-paste("Estimate for beta1 is:  " , mean(top_pop$beta1))
-```
+    ## [1] "Estimate for beta1 is:   2.95501945779995"
 
-    ## [1] "Estimate for beta1 is:   2.93614639936588"
+    ## [1] "Estimate for beta0 SE is:   3.59932735140266"
 
-``` r
-paste("Estimate for beta0 SE is:  ", sd(top_pop$beta0))
-```
+    ## [1] "Estimate for beta1 SE is:   0.147730157417931"
 
-    ## [1] "Estimate for beta0 SE is:   4.05071141167123"
-
-``` r
-paste("Estimate for beta1 SE is:  ", sd(top_pop$beta1))
-```
-
-    ## [1] "Estimate for beta1 SE is:   0.150721040328184"
-
-Benchmark against lm
+And now we can compare that with the output of lm
 
 ``` r
 fit <- lm(y ~ x)
@@ -142,15 +128,15 @@ summary(fit)
     ## 
     ## Residuals:
     ##      Min       1Q   Median       3Q      Max 
-    ## -10.7376  -3.3919   0.2349   3.3356  11.5238 
+    ## -12.5637  -3.1223  -0.1331   3.2483  11.9405 
     ## 
     ## Coefficients:
     ##             Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)  1.99208    2.72864    0.73    0.467    
-    ## x            3.07228    0.08971   34.24   <2e-16 ***
+    ## (Intercept)   7.3864     3.1240   2.364     0.02 *  
+    ## x             2.9233     0.1047  27.927   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 4.627 on 98 degrees of freedom
-    ## Multiple R-squared:  0.9229, Adjusted R-squared:  0.9221 
-    ## F-statistic:  1173 on 1 and 98 DF,  p-value: < 2.2e-16
+    ## Residual standard error: 4.745 on 98 degrees of freedom
+    ## Multiple R-squared:  0.8884, Adjusted R-squared:  0.8872 
+    ## F-statistic: 779.9 on 1 and 98 DF,  p-value: < 2.2e-16
