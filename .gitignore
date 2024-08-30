@@ -1,8 +1,13 @@
+# sql
+_pg15_data/
+
+# R
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
 
+# mac
 .DS_Store
 
 # Byte-compiled / optimized / DLL files
