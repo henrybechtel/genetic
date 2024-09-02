@@ -46,14 +46,6 @@ FROM
     (Select normal_rand(6, 3) AS x FROM generate_series(1, 20)) AS T
 )
 
-drop table if exists betas;
-create table betas as
-select 
-normal_rand(0, 3) AS b0,
-normal_rand(0, 3) AS b1
-FROM generate_series(1, 10)
-
-
 
 
 -- SELECT generate_series(
