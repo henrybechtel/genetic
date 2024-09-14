@@ -9,6 +9,7 @@ _pg15_data/
 
 # mac
 .DS_Store
+.Trash-0/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
