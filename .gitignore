@@ -1,5 +1,6 @@
 # sql
 _pg15_data/
+setup_base_jupyter.sh
 
 # R
 .Rproj.user
