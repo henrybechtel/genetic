@@ -1,12 +1,16 @@
--- SET search_path TO genetic;
- -- drop table if exists betas;
--- create table betas as
--- select
--- normal_rand(0, 3) AS b0,
--- normal_rand(0, 3) AS b1,
--- 1 AS generation
--- FROM generate_series(1, 5);
- -- select * from betas;
+SET search_path TO genetic;
+
+drop table if exists betas;
+create table betas as
+select
+normal_rand(0, 3) AS b0,
+normal_rand(0, 3) AS b1,
+1 AS generation
+FROM generate_series(1, 10);
+ 
+
+select * from betas;
+
 
 WITH 
 max_gen as 
@@ -24,33 +28,30 @@ last_betas as (
      FROM observations as o
      CROSS JOIN last_betas as b),
       rmse_calc AS
-    (SELECT b0,
-            b1,
-            generation, |/AVG(sq_error) AS rmse
+    (SELECT b0, b1, generation, |/AVG(sq_error) AS rmse
      FROM cp
-     GROUP BY b0,
-              b1,
-              generation),
+     GROUP BY b0, b1, generation),
       ranked as
     (SELECT *,
             rank() over(
                         partition by generation
                         order by rmse) as rank
      FROM rmse_calc )
-
 select *, (SELECT generation FROM max_gen) as mgen
 from ranked;
 
--- INSERT INTO betas (b0, b1, generation)
--- SELECT
---     b0 + (random() * 0.1),
---     b1 + (random() * 0.1),
---     max(generation) + 1
--- FROM
---     ranked
--- -- where rank < 4
--- GROUP BY b0, b1, generation;
 
--- select *
--- from betas
--- order by generation desc;
+INSERT INTO betas (b0, b1, generation)
+SELECT
+    b0 + (random() * 0.1),
+    b1 + (random() * 0.1),
+    max(generation) + 1
+FROM
+    ranked
+-- where rank < 4
+GROUP BY b0, b1, generation;
+
+
+select *
+from betas
+order by generation desc;

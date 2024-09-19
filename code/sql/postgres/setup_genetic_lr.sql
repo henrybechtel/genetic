@@ -46,7 +46,9 @@ FROM
     (Select normal_rand(6, 3) AS x FROM generate_series(1, 20)) AS T
 )
 
-
+select * 
+from observations
+order by x;
 
 -- SELECT generate_series(
 --     '2024-01-01'::date,
