@@ -3,6 +3,7 @@ _pg15_data/
 setup_base_jupyter.sh
 setup_pg.sh
 setup_duckdb.sh
+data/databases/
 
 # R
 .Rproj.user
