@@ -1,28 +1,27 @@
 import numpy as np
 
 class GeneticLinearRegressor:
-
     def __init__(self, gen_size=10):
         self.gen_size = gen_size
         self.init_beta_mean = 0
         self.init_beta_std = 10
         self.betas = np.random.normal(self.init_beta_mean, self.init_beta_std, (self.gen_size, 2))
 
-    def rmse_fitness(self):
-        y_hat = self.beta[0] + x_obs * self.beta[1]
-        rmse = np.sqrt(np.mean((y_hat - y_obs)**2))
+    def rmse_fitness(self, b):
+        y_hat = b[0] + self.x_obs * b[1]
+        rmse = np.sqrt(np.mean((y_hat - self.y_obs)**2))
         return rmse
-        
+    
     def rank(self):
         scored = np.column_stack((self.betas, np.apply_along_axis(self.rmse_fitness, axis=1, arr=self.betas)))
         ranked = scored[scored[:, 2].argsort()]
         return ranked
-
+    
     def select(self, ranked, frac):
         top_num = int(frac*ranked.shape[0])
         survivors = ranked[:top_num]
         return survivors
-
+    
     def mate(self, survivors, gen_size):
         rank_weighting = np.linspace(1, 0, survivors.shape[0])
         rank_weighting /= rank_weighting.sum()
@@ -33,9 +32,11 @@ class GeneticLinearRegressor:
         mutation = np.random.normal(0, 1, (gen_size, 2))
         # next generation
         new_betas = sampled_betas + mutation
-        return new_betas
-        
+        return new_betas 
+    
     def fit(self, x_obs, y_obs):
+        self.x_obs = x_obs
+        self.y_obs = y_obs
         self.best_fit_hist = []
         verbose = True
         for gen in range(5):
