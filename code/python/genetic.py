@@ -54,3 +54,14 @@ class GeneticLinearRegressor:
             if verbose:
                 print(f"next betas: \n {self.betas[:10]}")
                 print('\n')
+
+
+if __name__ == '__main__':
+    sample_num = 10
+    beta_true = [10, 3]
+
+    x_obs = np.random.normal(25, 10, sample_num)
+    y_obs = beta_true[0] + beta_true[1]*x_obs + np.random.normal(0, 10, sample_num)
+
+    glr = GeneticLinearRegressor()
+    glr.fit(x_obs, y_obs)
