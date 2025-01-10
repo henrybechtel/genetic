@@ -28,8 +28,10 @@ class GeneticLinearRegressor:
         sampled_b0 = np.random.choice(survivors[:,0], size=gen_size, replace=True, p=rank_weighting)
         sampled_b1 = np.random.choice(survivors[:,1], size=gen_size, replace=True, p=rank_weighting)
         sampled_betas = np.column_stack((sampled_b0, sampled_b1))
+
         # mutation
         mutation = np.random.normal(0, 1, (gen_size, 2))
+
         # next generation
         new_betas = sampled_betas + mutation
         return new_betas 
@@ -42,13 +44,16 @@ class GeneticLinearRegressor:
         for gen in range(5):
             if verbose:
                 print(f"Generation: {gen}")
+
             # ranking
             ranked = self.rank()
             self.best_fit_hist.append(ranked[0][2])
+
             # selection
             survivors = self.select(ranked, 0.2)
             if verbose:
                 print(f"survivors:\n {survivors}")
+                
             # crossover and mutation -> next generation
             self.betas = self.mate(survivors, self.gen_size)
             if verbose:
