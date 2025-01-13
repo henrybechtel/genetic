@@ -3,7 +3,8 @@
 # Run the container with 
 docker run -it \
     --name base_python_container \
-    -v ./:/app \
+    -v ./code:/code \
+    -v ./data:/data \
     base_python bash
 
 # Open a shell prompt inside the container
